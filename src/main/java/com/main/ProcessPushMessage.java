@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import com.entity.RateBeans;
+import com.entity.OrderBeans;
 import com.factory.DBFactory;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
@@ -83,14 +83,14 @@ public class ProcessPushMessage
 			client.setPort(Integer.parseInt(props.getProperty("tcp.server.port")));
 
 			// コマンド
-			String command = this.props.getProperty("rate.command"); //"RATECHK MASTER=mt4awk113|";
+			String command = this.props.getProperty("open.command"); //"xxxxxxx MASTER=mt4awk113|";
 
-			ArrayList<RateBeans> rates = new ArrayList<RateBeans>();
+			ArrayList<OrderBeans> beans = new ArrayList<OrderBeans>();
 
 			//-------------------------
 			// 返却文字列作成
 			//-------------------------
-			Constants.PROCESS_TYPE process_type = client.run(command, rates); // TCPを実行
+			Constants.PROCESS_TYPE process_type = client.run(command, beans); // TCPを実行
 
 			switch (process_type) // 処理タイプを判定
 			{
@@ -100,12 +100,12 @@ public class ProcessPushMessage
 
 				int success_count = 0;
 				//int beans_count = 0;
-				for (RateBeans beans : rates)
+				for (OrderBeans bean : beans)
 				{
 					// 該当レコードが存在する場合
 					// ヘッダーをセット
 					if (success_count == 0) // 最初レコードの場合
-						sb.append("■rate alert\r\n");
+						sb.append("■order alert\r\n");
 
 					//---------------------------
 					// ディティールをセット
@@ -117,9 +117,10 @@ public class ProcessPushMessage
 						break;
 					}
 
-					// 対象シンボルが4件以内の場合、シンボル名 + 停止秒数を表示
-					sb.append(beans.getSymbol() + " : "
-							+ beans.getInterval() + " 秒\r\n");
+					// 対象シンボルが4件以内の場合、サーバー名、シンボル名、ロット数を表示
+					sb.append(bean.getServer() + " : "
+							+ bean.getSymbol() + " "
+							+ bean.getLot() + " \r\n");
 					success_count++;
 
 				}

@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.entity.RateBeans;
+import com.entity.OrderBeans;
 import com.utility.Constants;
 
 
@@ -31,7 +31,7 @@ public class TcpClient// implements Runnable
     //+------------------------------------------
 	//| Runメソッドの実装
     //+------------------------------------------
-    public Constants.PROCESS_TYPE run(String command, ArrayList<RateBeans> rates)
+    public Constants.PROCESS_TYPE run(String command, ArrayList<OrderBeans> beans)
     {
     	//ArrayList<RateBeans> rates = new ArrayList<RateBeans>();
 		Socket socket = null;//ソケット
@@ -84,20 +84,16 @@ public class TcpClient// implements Runnable
 					}
 
 					// オブジェクトへ洗い替え
-					RateBeans rate = new RateBeans();
-					rate.setSymbol(list.get(0).toString());
-					rate.setBid(Double.parseDouble(list.get(1).toString()));
-					rate.setAsk(Double.parseDouble(list.get(2).toString()));
-					rate.setCtm(Long.parseLong(list.get(3).toString()));
-					rate.setInterval(Integer.parseInt(list.get(4).toString()));
+					OrderBeans bean = new OrderBeans();
+					bean.setServer(list.get(0).toString());
+					bean.setSymbol(list.get(1).toString());
+					bean.setCmd(list.get(2).toString());
+					bean.setLot(Double.parseDouble(list.get(3).toString()));
 
-					rates.add(rate);
+					beans.add(bean);
 				}
 
 				count++;
-
-//				text = sok_br.readLine();//受信データ取得
-//				System.out.println("受信『" + recive + "』");
 			}
 		}
 		catch(Exception e)

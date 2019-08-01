@@ -53,7 +53,7 @@ public class Utility
 
 			if (props.getProperty("ratechk.allow").equals(String.valueOf(value).toString()) == false)
 			{
-				return "rate checker process failed.";
+				return "order checker process failed.";
 			}
 
 		} catch (IOException e)
@@ -63,7 +63,7 @@ public class Utility
 			return e.getMessage().toString();
 		}
 
-		return "rate checker " + strProcessText.toString() + " successful.";
+		return "order checker " + strProcessText.toString() + " successful.";
 	}
 
 	/**
