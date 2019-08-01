@@ -107,6 +107,7 @@ public class ProcessPushMessage
 					if (success_count == 0) // 最初レコードの場合
 						sb.append("■order alert\r\n");
 
+					/*
 					//---------------------------
 					// ディティールをセット
 					//---------------------------
@@ -116,12 +117,12 @@ public class ProcessPushMessage
 						sb.append("...");
 						break;
 					}
-
+					*/
 					// 対象シンボルが4件以内の場合、サーバー名、シンボル名、ロット数を表示
 					sb.append(bean.getServer() + " : "
 							+ bean.getSymbol() + " "
 							+ bean.getCmd() + " "
-							+ bean.getLot() + " \r\n");
+							+ bean.getLot() + "\r\n");
 					success_count++;
 
 				}
