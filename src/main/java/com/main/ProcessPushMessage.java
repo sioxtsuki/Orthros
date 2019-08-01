@@ -120,6 +120,7 @@ public class ProcessPushMessage
 					// 対象シンボルが4件以内の場合、サーバー名、シンボル名、ロット数を表示
 					sb.append(bean.getServer() + " : "
 							+ bean.getSymbol() + " "
+							+ bean.getCmd() + " "
 							+ bean.getLot() + " \r\n");
 					success_count++;
 
