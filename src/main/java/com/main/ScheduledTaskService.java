@@ -31,7 +31,7 @@ public class ScheduledTaskService
     /**
      * プッシュメッセージスケジュール
      */
-    @Scheduled(initialDelay=0, fixedDelay=60000)
+    @Scheduled(initialDelay=0, fixedDelay=70000)
     public void executeAlarm()
     {
     	Resource resource = null;
