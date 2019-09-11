@@ -126,6 +126,15 @@ public class ProcessPushMessage
 					success_count++;
 
 				}
+
+				// Add By Sio 2019.09.11 Start
+				// OM画面URL
+				if (success_count > 0)
+				{
+					sb.append("http://bit.ly/313Zlls");
+				}
+				// Add By Sio 2019.09.11 End
+
 				text = sb.toString();
 				break;
 
