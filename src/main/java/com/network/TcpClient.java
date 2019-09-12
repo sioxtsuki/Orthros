@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.entity.OrderBeans;
 import com.utility.Constants;
 
 
@@ -31,7 +30,7 @@ public class TcpClient// implements Runnable
     //+------------------------------------------
 	//| Runメソッドの実装
     //+------------------------------------------
-    public Constants.PROCESS_TYPE run(String command, ArrayList<OrderBeans> beans)
+    public Constants.PROCESS_TYPE run(String command, ArrayList<String> beans)
     {
     	//ArrayList<RateBeans> rates = new ArrayList<RateBeans>();
 		Socket socket = null;//ソケット
@@ -70,6 +69,10 @@ public class TcpClient// implements Runnable
 					continue;
 				}
 
+				String values[] = recive.split("\\|");
+
+				beans.add(recive);
+				/*
 				// ２件目以降のデータの場合
 				String values[] = recive.split("\\|");
 
@@ -91,7 +94,7 @@ public class TcpClient// implements Runnable
 					bean.setLot(Double.parseDouble(list.get(3).toString()));
 
 					beans.add(bean);
-				}
+				}*/
 
 				count++;
 			}

@@ -86,11 +86,12 @@ public class ProcessPushMessage
 			String command = this.props.getProperty("open.command"); //"xxxxxxx MASTER=mt4awk113|";
 
 			ArrayList<OrderBeans> beans = new ArrayList<OrderBeans>();
+			ArrayList<String> streamValue = new ArrayList<String>();
 
 			//-------------------------
 			// 返却文字列作成
 			//-------------------------
-			Constants.PROCESS_TYPE process_type = client.run(command, beans); // TCPを実行
+			Constants.PROCESS_TYPE process_type = client.run(command, streamValue); // TCPを実行
 
 			switch (process_type) // 処理タイプを判定
 			{
@@ -100,7 +101,7 @@ public class ProcessPushMessage
 
 				int success_count = 0;
 				//int beans_count = 0;
-				for (OrderBeans bean : beans)
+				for (String value : streamValue)
 				{
 					// 該当レコードが存在する場合
 					// ヘッダーをセット
@@ -119,12 +120,14 @@ public class ProcessPushMessage
 					}
 					*/
 					// 対象シンボルが4件以内の場合、サーバー名、シンボル名、ロット数を表示
+					/*
 					sb.append(bean.getServer() + " : "
 							+ bean.getSymbol() + " "
 							+ bean.getCmd() + " "
 							+ bean.getLot() + "\r\n");
+							*/
+					sb.append(value + "\r\n");
 					success_count++;
-
 				}
 
 				// Add By Sio 2019.09.11 Start
