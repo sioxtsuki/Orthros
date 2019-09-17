@@ -39,7 +39,7 @@ public class TcpClient// implements Runnable
 		int count = 0;
 
 		try {
-			ArrayList<String> list = new ArrayList<String>();
+			//ArrayList<String> list = new ArrayList<String>();
 
 			socket = new Socket(this.host , this.port); //接続
 
@@ -69,7 +69,7 @@ public class TcpClient// implements Runnable
 					continue;
 				}
 
-				String values[] = recive.split("\\|");
+				//String values[] = recive.split("\\|");
 
 				beans.add(recive);
 				/*
