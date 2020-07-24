@@ -25,8 +25,8 @@ public class ScheduledTaskService
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
 
-	//@Autowired
-	//private ProcessPushMessage message;
+	@Autowired
+	private ProcessPushMessage message;
 
     /**
      * プッシュメッセージスケジュール
