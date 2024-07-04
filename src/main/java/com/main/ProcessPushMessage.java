@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import com.entity.OrderBeans;
 import com.factory.DBFactory;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
@@ -70,7 +69,7 @@ public class ProcessPushMessage
     	conf_props.load(new FileInputStream(Constants.CONF_PROP_PATH));
     	if (conf_props.getProperty("ratechk.allow").toString().equals("0") == true)
     	{
-    		return;
+    		//return;
     	}
 
 		try
@@ -85,7 +84,7 @@ public class ProcessPushMessage
 			// コマンド
 			String command = this.props.getProperty("open.command"); //"xxxxxxx MASTER=mt4awk113|";
 
-			ArrayList<OrderBeans> beans = new ArrayList<OrderBeans>();
+			//ArrayList<OrderBeans> beans = new ArrayList<OrderBeans>();
 			ArrayList<String> streamValue = new ArrayList<String>();
 
 			//-------------------------
@@ -174,6 +173,8 @@ public class ProcessPushMessage
 				sbFindSQL.append("SELECT user_id, authority FROM ");
 				sbFindSQL.append(tb_user.toString());
 				sbFindSQL.append(" WHERE permissions =? AND bot_id=?");
+
+				System.out.println(sbFindSQL.toString());
 
 				ps = conn.getPreparedStatement(sbFindSQL.toString(), null);
 				if (ps != null)
