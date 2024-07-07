@@ -15,6 +15,7 @@ public class LineBotController {
 	void index(HttpServletRequest request) throws RuntimeException {
 
 /*
+ * 未使用
 		System.out.println("request: " + request.getParameter("textt").toString());
 
 		@SuppressWarnings("unused")
