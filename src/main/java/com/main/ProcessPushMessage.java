@@ -56,11 +56,12 @@ public class ProcessPushMessage
 	 */
 	public void pushMT4RateCheckProcessAlarm() throws URISyntaxException, IOException, SQLException, InterruptedException, ExecutionException, InstantiationException, IllegalAccessException
 	{
-    	DBConnection conn = null;
-    	PreparedStatement ps = null;
-    	ResultSet rs = null;
+		// 2024.07.09 DB接続できないため改修
+    	//DBConnection conn = null;
+    	//PreparedStatement ps = null;
+    	//ResultSet rs = null;
     	String text = "";
-    	StringBuilder sbFindSQL = null;
+    	//StringBuilder sbFindSQL = null;
 
     	//-------------------------------
     	// 配信を許可しない場合は処理中断
@@ -74,7 +75,7 @@ public class ProcessPushMessage
 
 		try
 		{
-			conn = DBFactory.getConnection(this.props);
+			//conn = DBFactory.getConnection(this.props); // Delete By 2024.07.09
 
 			// MT4からレート情報を取得
 			TcpClient client = new TcpClient();
@@ -164,8 +165,16 @@ public class ProcessPushMessage
 	    	if (text.isEmpty() == false)
 	    	{
 		    	// BOT_IDを取得
-				String bot_id = this.props.getProperty("id").toString();
+				//String bot_id = this.props.getProperty("id").toString();
+	        	String user_id = this.props.getProperty("groupid").toString();
+	        	@SuppressWarnings("unused")
+				final BotApiResponse response = this.lineMessagingClient
+	                                            .pushMessage(new PushMessage(user_id.toString(),
+	                                                         new TextMessage(text.toString()
+	                                                          ))).get();
 
+
+				/* Delete By 2024.07.09
 				// ユーザ情報を取得
 				String tb_user = conn.GetProps().getProperty("tb.user");
 		    	sbFindSQL = new StringBuilder();
@@ -220,11 +229,12 @@ public class ProcessPushMessage
 
 					ps.close();
 					ps = null;
-				}
+				}*/
 	    	}
 		}
         finally
         {
+        	/* Delete By 2024.07.09
         	if (conn != null)
         	{
         		conn.getConnection().close();
@@ -235,7 +245,7 @@ public class ProcessPushMessage
         	{
         		sbFindSQL.delete(0, sbFindSQL.length());
     			sbFindSQL= null;
-        	}
+        	}*/
         }
 	}
 
