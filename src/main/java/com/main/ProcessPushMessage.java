@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
@@ -67,10 +68,20 @@ public class ProcessPushMessage
     	// 配信を許可しない場合は処理中断
     	//-------------------------------
     	Properties conf_props = new Properties();
-    	conf_props.load(new FileInputStream(Constants.CONF_PROP_PATH));
+    	try {
+			conf_props.load(new FileInputStream(Constants.CONF_PROP_PATH));
+		} catch (FileNotFoundException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+
+    	//conf_props.load(new FileInputStream(Constants.CONF_PROP_PATH));
     	if (conf_props.getProperty("ratechk.allow").toString().equals("0") == true)
     	{
-    		//return;
+    		return;
     	}
 
 		try
