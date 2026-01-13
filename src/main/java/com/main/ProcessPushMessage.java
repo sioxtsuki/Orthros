@@ -77,7 +77,7 @@ public class ProcessPushMessage
 			// TODO 自動生成された catch ブロック
 			e1.printStackTrace();
 		}
-
+//
     	if (conf_props.getProperty("ratechk.allow").toString().equals("0") == true)
     	{
     		return;
