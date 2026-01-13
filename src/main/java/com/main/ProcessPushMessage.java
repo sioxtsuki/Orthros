@@ -78,7 +78,6 @@ public class ProcessPushMessage
 			e1.printStackTrace();
 		}
 
-    	//conf_props.load(new FileInputStream(Constants.CONF_PROP_PATH));
     	if (conf_props.getProperty("ratechk.allow").toString().equals("0") == true)
     	{
     		return;
