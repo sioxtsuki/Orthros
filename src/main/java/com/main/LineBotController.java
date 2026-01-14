@@ -5,18 +5,34 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.utility.Utility;
+
 @RestController
 public class LineBotController {
 
-//	@Autowired
-//	private LineMessagingClient lineMessagingClient;
+	//@Autowired
+	//private LineMessagingClient lineMessagingClient;
 
 	@RequestMapping(value = "/linebot")
 	void index(HttpServletRequest request) throws RuntimeException {
 
+		String ret = "";
+		try
+		{
+			// 状態をセット
+			String value = request.getParameter("text").toString();
+			ret = Utility.RateCheckProcess(Integer.parseInt(value));
+			System.out.println(ret.toString());
+			//System.out.println("request: " + request.getParameter("text").toString());
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+
 /*
  * 未使用
-		System.out.println("request: " + request.getParameter("textt").toString());
+		System.out.println("request: " + request.getParameter("text").toString());
 
 		@SuppressWarnings("unused")
 		BotApiResponse response;

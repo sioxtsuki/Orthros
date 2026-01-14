@@ -58,11 +58,7 @@ public class ProcessPushMessage
 	public void pushMT4RateCheckProcessAlarm() throws URISyntaxException, IOException, SQLException, InterruptedException, ExecutionException, InstantiationException, IllegalAccessException
 	{
 		// 2024.07.09 DB接続できないため改修
-    	//DBConnection conn = null;
-    	//PreparedStatement ps = null;
-    	//ResultSet rs = null;
     	String text = "";
-    	//StringBuilder sbFindSQL = null;
 
     	//-------------------------------
     	// 配信を許可しない場合は処理中断
@@ -84,8 +80,6 @@ public class ProcessPushMessage
 
 		try
 		{
-			//conn = DBFactory.getConnection(this.props); // Delete By 2024.07.09
-
 			// MT4からレート情報を取得
 			TcpClient client = new TcpClient();
 			client.setHost(this.props.getProperty("tcp.server.ip"));
@@ -117,24 +111,6 @@ public class ProcessPushMessage
 					if (success_count == 0) // 最初レコードの場合
 						sb.append("■order alert\r\n");
 
-					/*
-					//---------------------------
-					// ディティールをセット
-					//---------------------------
-					// 対象シンボルが5件以上の場合、５件目から『...』 表示
-					if (success_count == 4)
-					{
-						sb.append("...");
-						break;
-					}
-					*/
-					// 対象シンボルが4件以内の場合、サーバー名、シンボル名、ロット数を表示
-					/*
-					sb.append(bean.getServer() + " : "
-							+ bean.getSymbol() + " "
-							+ bean.getCmd() + " "
-							+ bean.getLot() + "\r\n");
-							*/
 					sb.append(value + "\r\n");
 					success_count++;
 				}
@@ -168,8 +144,6 @@ public class ProcessPushMessage
 
 			}
 
-			//System.out.println(text);
-
 			//text = Utility.IsRate_Proess(conn);
 	    	if (text.isEmpty() == false)
 	    	{
@@ -183,79 +157,10 @@ public class ProcessPushMessage
 	                                                          ))).get();
 
 
-				/* Delete By 2024.07.09
-				// ユーザ情報を取得
-				String tb_user = conn.GetProps().getProperty("tb.user");
-		    	sbFindSQL = new StringBuilder();
-				sbFindSQL.delete(0, sbFindSQL.length());
-				sbFindSQL.append("SELECT user_id, authority FROM ");
-				sbFindSQL.append(tb_user.toString());
-				sbFindSQL.append(" WHERE permissions =? AND bot_id=?");
-
-				System.out.println(sbFindSQL.toString());
-
-				ps = conn.getPreparedStatement(sbFindSQL.toString(), null);
-				if (ps != null)
-				{
-					ps.clearParameters();
-					ps.setInt(1, 1);
-					ps.setString(2, bot_id.toString());
-					rs = ps.executeQuery();
-					if (rs != null)
-					{
-						// ラインへプッシュ
-						while (rs.next())
-						{
-							String user_id = rs.getString("user_id").toString();
-
-							//------------------------------------------------------------
-							// Add By 2019.04.24
-							// アドミン権限以外の場合、通常エラーの場合、処理中断
-							int authority = rs.getInt("authority");
-							if (authority != 1) // アドミン権限以外の場合
-							{
-								if (process_type == Constants.PROCESS_TYPE.PT_ERROR)
-								{
-									continue;
-								}
-							}
-							//------------------------------------------------------------
-
-							//System.out.println(user_id.trim().toString());
-				        	@SuppressWarnings("unused")
-							final BotApiResponse response = this.lineMessagingClient
-				                                            .pushMessage(new PushMessage(user_id.toString(),
-				                                                         new TextMessage(text.toString()
-				 //                                                        new ConfirmTemplate("ごみ捨ては終わった？",
-				 //                                                        new MessageAction("はい", "はい"),
-				 //                                                        new MessageAction("いいえ", "いいえ")
-				                                                          ))).get();
-						}
-
-						rs.close();
-						rs = null;
-					}
-
-					ps.close();
-					ps = null;
-				}*/
 	    	}
 		}
         finally
-        {
-        	/* Delete By 2024.07.09
-        	if (conn != null)
-        	{
-        		conn.getConnection().close();
-        		conn = null;
-        	}
-
-        	if (sbFindSQL != null)
-        	{
-        		sbFindSQL.delete(0, sbFindSQL.length());
-    			sbFindSQL= null;
-        	}*/
-        }
+        {}
 	}
 
     /**
